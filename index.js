@@ -22,15 +22,10 @@ app.get("/", (req, res) => {
   res.render("home.ejs");
 });
 
-app.get("/makecampground", async (req, res) => {
-  let camp = new Campground({
-    title: "Vansiri Greenfields",
-    price: "5000",
-    location: "jayanagar",
-    description: "good place!!",
-  });
-  await camp.save();
-  res.send(camp);
+app.get("/campgrounds", async (req, res) => {
+  let allCampgrounds = await Campground.find({});
+  console.log(allCampgrounds);
+  res.render("campgrounds/index.ejs", { allCampgrounds });
 });
 
 app.listen(3000, () => {
