@@ -7,6 +7,9 @@
   </head>
   <body>
     <h1><%= campground.title%></h1>
+    <nav>
+      <a href="/campgrounds/<%=campground.id%>/edit">Edit</a>
+    </nav>
     <h3><%= campground.location%></h3>
     <a href="/campgrounds">Home page</a>
   </body>

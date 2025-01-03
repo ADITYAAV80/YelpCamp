@@ -20,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
 app.get("/", (req, res) => {
   res.render("home.ejs");
 });
@@ -38,6 +41,21 @@ app.post("/campgrounds", async (req, res) => {
   console.log(campground);
   await campground.save();
   res.redirect(`/campgrounds/${campground._id}`);
+});
+
+app.get("/campgrounds/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  let campground = await Campground.findById(id);
+  res.render("campgrounds/edit.ejs", { campground });
+});
+
+app.put("/campgrounds/:id", async (req, res) => {
+  let { id } = req.params;
+  let newcampground = await Campground.findByIdAndUpdate(id, req.body, {
+    runValidators: true,
+    new: true,
+  });
+  res.redirect(`/campgrounds/${id}`);
 });
 
 app.get("/campgrounds/:id", async (req, res) => {
