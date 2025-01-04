@@ -23,6 +23,12 @@ let setData = async () => {
     let location = {
       title: `${descriptor} ${place}`,
       location: `${city.city}, ${city.state}`,
+      price: 50 + Math.floor(Math.random() * 20),
+      image: `https://picsum.photos/200/300?random=${Math.floor(
+        Math.random() * 800
+      )}`,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur minima corrupti incidunt suscipit voluptate accusantium, voluptas, ipsa mollitia laboriosam, nobis enim. Soluta sapiente fugiat ea amet necessitatibus rem accusamus ut?Reprehenderit omnis explicabo cupiditate aperiam eaque alias quos tempora hic sed architecto. Est eveniet dolore",
     };
     let camp = new Campground(location);
     await camp.save();

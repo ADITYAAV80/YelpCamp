@@ -1,9 +1,29 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <h1>All campgrounds</h1>
-<ul>
-  <% for (let campground of allCampgrounds){%>
-  <a href="/campgrounds/<%= campground._id%>">
-    <li><%= campground.title%></li>
-  </a>
-  <%}%>
-</ul>
+<div class="container">
+  <div class="row">
+    <% for (let campground of allCampgrounds){%>
+    <div class="col my-2 col-sm-12 col-md-6 col-lg-4">
+      <div class="card" style="width: 18rem">
+        <img
+          src="<%= campground.image%>"
+          height="250"
+          width="125"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title"><%= campground.title%></h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="/campgrounds/<%= campground._id%>" class="btn btn-primary"
+            >View Campground</a
+          >
+        </div>
+      </div>
+    </div>
+    <%}%>
+  </div>
+</div>
