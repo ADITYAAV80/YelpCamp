@@ -17,10 +17,14 @@ const Campground = require("./model/campground");
 
 app.use(express.urlencoded({ extended: true }));
 
+const ejsMate = require("ejs-mate");
+app.engine("ejs", ejsMate);
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 const methodOverride = require("method-override");
+const { title } = require("process");
 app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
@@ -29,11 +33,14 @@ app.get("/", (req, res) => {
 
 app.get("/campgrounds", async (req, res) => {
   let allCampgrounds = await Campground.find({});
-  res.render("campgrounds/index.ejs", { allCampgrounds });
+  res.render("campgrounds/index.ejs", {
+    title: "All Campgrounds",
+    allCampgrounds,
+  });
 });
 
 app.get("/campgrounds/new", async (req, res) => {
-  res.render("campgrounds/new.ejs");
+  res.render("campgrounds/new.ejs", { title: "New Campground" });
 });
 
 app.post("/campgrounds", async (req, res) => {
@@ -46,7 +53,7 @@ app.post("/campgrounds", async (req, res) => {
 app.get("/campgrounds/:id/edit", async (req, res) => {
   let { id } = req.params;
   let campground = await Campground.findById(id);
-  res.render("campgrounds/edit.ejs", { campground });
+  res.render("campgrounds/edit.ejs", { title: "Edit Campground", campground });
 });
 
 app.put("/campgrounds/:id", async (req, res) => {
@@ -67,7 +74,7 @@ app.delete("/campgrounds/:id", async (req, res) => {
 app.get("/campgrounds/:id", async (req, res) => {
   let { id } = req.params;
   let campground = await Campground.findById(id);
-  res.render("campgrounds/show.ejs", { campground });
+  res.render("campgrounds/show.ejs", { title: campground.title, campground });
 });
 
 app.listen(3000, () => {

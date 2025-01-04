@@ -1,34 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Campground</title>
-  </head>
-  <body>
-    <h1>Edit campground</h1>
-    <form action="/campgrounds/<%=campground.id%>?_method=PUT" method="POST">
-      <div>
-        <label for="title">Add a Title</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value="<%= campground.title%>"
-        />
-      </div>
-      <br />
-      <div>
-        <label for="location">Add Location</label>
-        <input
-          type="text"
-          name="location"
-          id="location"
-          value="<%= campground.location%>"
-        />
-      </div>
-      <br />
-      <button>Submit</button>
-    </form>
-  </body>
-</html>
+<% layout("/layouts/boilerplate.ejs") %>
+<h1>Edit campground</h1>
+<form action="/campgrounds/<%=campground.id%>?_method=PUT" method="POST">
+  <div>
+    <label for="title">Add a Title</label>
+    <input type="text" name="title" id="title" value="<%= campground.title%>" />
+  </div>
+  <br />
+  <div>
+    <label for="location">Add Location</label>
+    <input
+      type="text"
+      name="location"
+      id="location"
+      value="<%= campground.location%>"
+    />
+  </div>
+  <br />
+  <button>Submit</button>
+</form>
