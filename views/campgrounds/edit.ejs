@@ -1,20 +1,63 @@
 <% layout("/layouts/boilerplate.ejs") %>
-<h1>Edit campground</h1>
-<form action="/campgrounds/<%=campground.id%>?_method=PUT" method="POST">
-  <div>
-    <label for="title">Add a Title</label>
-    <input type="text" name="title" id="title" value="<%= campground.title%>" />
-  </div>
-  <br />
-  <div>
-    <label for="location">Add Location</label>
-    <input
-      type="text"
-      name="location"
-      id="location"
-      value="<%= campground.location%>"
-    />
-  </div>
-  <br />
-  <button>Submit</button>
-</form>
+<div class="offset-3 col-6 mt-3">
+  <h1>Edit campground</h1>
+  <form action="/campgrounds/<%=campground.id%>?_method=PUT" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        class="form-control"
+        type="text"
+        name="title"
+        id="title"
+        value="<%= campground.title%>"
+      />
+    </div>
+    <div class="row">
+      <div class="mb-3 col-6">
+        <label for="location" class="form-label">Location</label>
+        <input
+          class="form-control"
+          type="text"
+          name="location"
+          id="location"
+          value="<%= campground.location%>"
+        />
+      </div>
+      <div class="mb-3 col-6">
+        <label for="price" class="form-label">Price</label>
+        <input
+          class="form-control"
+          type="text"
+          name="price"
+          id="price"
+          value="<%= campground.price%>"
+        />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image URL</label>
+      <input
+        class="form-control"
+        type="text"
+        name="image"
+        id="image"
+        value="<%= campground.image%>"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Description</span>
+      <textarea
+        rows="5"
+        name="description"
+        id="description"
+        class="form-control"
+        aria-label="With textarea"
+      >
+<%= campground.description%></textarea
+      >
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>

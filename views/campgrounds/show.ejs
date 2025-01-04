@@ -1,12 +1,36 @@
 <% layout("/layouts/boilerplate.ejs") %>
-<h1><%= campground.title%></h1>
-<img src="<%= campground.image%>" width="200" height="300" />
-<h3 class="my-2">$<%= campground.price%> per night</h3>
-<p class="my-2"><%= campground.description %></p>
-<h3 class="my-2"><%= campground.location%></h3>
-<nav>
-  <a href="/campgrounds/<%=campground.id%>/edit">Edit</a>
-</nav>
-<form action="/campgrounds/<%=campground.id%>?_method=DELETE" method="POST">
-  <button class="btn btn-danger">Delete</button>
-</form>
+<div class="row my-auto">
+  <div class="offset-4 col-3">
+    <div class="card">
+      <img
+        src="<%= campground.image%>"
+        class="my-2 card-img-top img-fluid mx-auto d-block"
+        style="height: 200px; width: 200px; object-fit: cover"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title%></h5>
+        <p class="card-text"><%= campground.description %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= campground.location%></li>
+        <li class="list-group-item">$<%= campground.price%>/night</li>
+      </ul>
+      <div class="card-body">
+        <a
+          class="text-black text-decoration-none"
+          href="/campgrounds/<%= campground.id%>/edit"
+        >
+          <button class="card-link btn btn-warning">Edit</button>
+        </a>
+        <form
+          class="d-inline"
+          action="/campgrounds/<%=campground.id%>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
