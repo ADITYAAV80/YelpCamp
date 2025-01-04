@@ -5,6 +5,5 @@
 </nav>
 <h3><%= campground.location%></h3>
 <form action="/campgrounds/<%=campground.id%>?_method=DELETE" method="POST">
-  <button>Delete</button>
+  <button class="btn btn-danger">Delete</button>
 </form>
-<a href="/campgrounds">Home page</a>
