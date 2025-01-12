@@ -1,7 +1,12 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <div class="offset-3 col-6 mt-3">
   <h1>Edit campground</h1>
-  <form action="/campgrounds/<%=campground.id%>?_method=PUT" method="POST">
+  <form
+    class="needs-validation"
+    action="/campgrounds/<%=campground.id%>?_method=PUT"
+    method="POST"
+    novalidate
+  >
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input
@@ -10,7 +15,9 @@
         name="title"
         id="title"
         value="<%= campground.title%>"
+        required
       />
+      <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="row">
       <div class="mb-3 col-6">
@@ -21,7 +28,9 @@
           name="location"
           id="location"
           value="<%= campground.location%>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3 col-6">
         <label for="price" class="form-label">Price</label>
@@ -31,7 +40,9 @@
           name="price"
           id="price"
           value="<%= campground.price%>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
     </div>
     <div class="mb-3">
@@ -42,7 +53,9 @@
         name="image"
         id="image"
         value="<%= campground.image%>"
+        required
       />
+      <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text">Description</span>
@@ -52,9 +65,11 @@
         id="description"
         class="form-control"
         aria-label="With textarea"
+        required
       >
 <%= campground.description%></textarea
       >
+      <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="mb-3">
       <button class="btn btn-success">Submit</button>

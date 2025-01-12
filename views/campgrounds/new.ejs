@@ -1,24 +1,52 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <div class="offset-3 col-6 mt-3">
   <h1>Add a new campground</h1>
-  <form action="/campgrounds" method="POST">
+  <form class="needs-validation" action="/campgrounds" method="POST" novalidate>
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input class="form-control" type="text" name="title" id="title" />
+      <input
+        class="form-control"
+        type="text"
+        name="title"
+        id="title"
+        required
+      />
+      <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="row">
       <div class="mb-3 col-6">
         <label for="location" class="form-label">Location</label>
-        <input class="form-control" type="text" name="location" id="location" />
+        <input
+          class="form-control"
+          type="text"
+          name="location"
+          id="location"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3 col-6">
         <label for="price" class="form-label">Price</label>
-        <input class="form-control" type="text" name="price" id="price" />
+        <input
+          class="form-control"
+          type="text"
+          name="price"
+          id="price"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
       </div>
     </div>
     <div class="mb-3">
       <label for="image" class="form-label">Image URL</label>
-      <input class="form-control" type="text" name="image" id="image" />
+      <input
+        class="form-control"
+        type="text"
+        name="image"
+        id="image"
+        required
+      />
+      <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text">Description</span>
@@ -27,7 +55,9 @@
         id="description"
         class="form-control"
         aria-label="With textarea"
+        required
       ></textarea>
+      <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="mb-3">
       <button class="btn btn-success">Submit</button>
