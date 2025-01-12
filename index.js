@@ -104,8 +104,16 @@ app.get(
   })
 );
 
+app.all("*", (req, res, next) => {
+  next(new expressError("Page Not Found", 404));
+});
+
 app.use((err, req, res, next) => {
-  res.send("Oh no! Something went wrong");
+  let { statusCode = 500 } = err;
+  if (!err.message) {
+    err.message = "Something Went Wrong";
+  }
+  res.status(statusCode).render("error", { title: "Error", err });
 });
 
 app.listen(3000, () => {
