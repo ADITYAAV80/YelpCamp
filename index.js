@@ -127,7 +127,7 @@ app.get(
   "/campgrounds/:id",
   catchAsync(async (req, res) => {
     let { id } = req.params;
-    let campground = await Campground.findById(id);
+    let campground = await Campground.findById(id).populate("reviews");
     res.render("campgrounds/show.ejs", { title: campground.title, campground });
   })
 );

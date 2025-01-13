@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <div class="row my-auto">
-  <div class="offset-4 col-3 mt-3">
+  <div class="offset-3 col-3 mt-3">
     <div class="card">
       <img
         src="<%= campground.image%>"
@@ -32,9 +32,16 @@
         </form>
       </div>
     </div>
+  </div>
+  <div class="col-3">
     <div class="container my-3">
       <h4>Please leave a review</h4>
-      <form action="/campgrounds/<%= campground.id%>/reviews" method="POST">
+      <form
+        action="/campgrounds/<%= campground.id%>/reviews"
+        class="needs-validation"
+        novalidate
+        method="POST"
+      >
         <div>
           <label for="title" class="form-label">Title</label>
           <input
@@ -42,8 +49,11 @@
             class="form-control"
             id="title"
             name="review[title]"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
+
         <div>
           <label for="rating" class="form-label">Rating</label>
           <input
@@ -53,6 +63,7 @@
             max="5"
             id="rating"
             name="review[rating]"
+            required
           />
         </div>
         <div class="mb-3">
@@ -62,10 +73,23 @@
             name="review[body]"
             id="review"
             rows="3"
+            required
           ></textarea>
+          <div class="valid-feedback">Looks good!</div>
         </div>
         <button class="btn btn-success">Submit</button>
       </form>
+    </div>
+    <div class="container mb-3">
+      <%for(let review of campground.reviews){%>
+      <div class="card mb-3">
+        <div class="card-header"><%= review.title%></div>
+        <div class="card-body">
+          <p>Rating: <%= review.rating %></p>
+          <p><%= review.body %></p>
+        </div>
+      </div>
+      <% }%>
     </div>
   </div>
 </div>
