@@ -14,6 +14,7 @@ mongoose
   });
 
 const Campground = require("./model/campground");
+const Review = require("./model/review");
 
 app.use(express.urlencoded({ extended: true }));
 
