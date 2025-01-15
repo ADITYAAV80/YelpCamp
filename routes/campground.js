@@ -43,6 +43,7 @@ routes.post(
     let campground = new Campground(req.body);
     console.log(campground);
     await campground.save();
+    req.flash("success", "Successfully made a new campground!");
     res.redirect(`/campgrounds/${campground._id}`);
   })
 );
@@ -52,6 +53,10 @@ routes.get(
   catchAsync(async (req, res) => {
     let { id } = req.params;
     let campground = await Campground.findById(id);
+    if (!campground) {
+      req.flash("error", "Campground not found!");
+      return res.redirect("/campgrounds");
+    }
     res.render("campgrounds/edit.ejs", {
       title: "Edit Campground",
       campground,
@@ -68,6 +73,7 @@ routes.put(
       runValidators: true,
       new: true,
     });
+    req.flash("success", "Successfully edited campground!");
     res.redirect(`/campgrounds/${id}`);
   })
 );
@@ -77,6 +83,7 @@ routes.delete(
   catchAsync(async (req, res) => {
     let { id } = req.params;
     let status = await Campground.findByIdAndDelete(id);
+    req.flash("success", "Successfully deleted campground!");
     res.redirect("/campgrounds");
   })
 );
@@ -85,7 +92,12 @@ routes.get(
   "/:id",
   catchAsync(async (req, res) => {
     let { id } = req.params;
-    let campground = await Campground.findById(id).populate("reviews");
+    let campground = await Campground.findById(id);
+    if (!campground) {
+      req.flash("error", "Campground not found!");
+      return res.redirect("/campgrounds");
+    }
+    await campground.populate("reviews");
     res.render("campgrounds/show.ejs", { title: campground.title, campground });
   })
 );
