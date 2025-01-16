@@ -52,6 +52,21 @@ app.use((req, res, next) => {
   next();
 });
 
+const User = require("./model/user");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+
+//a- This middleware initializes Passport.js. It must be called first in the middleware stack before any routes where Passport is used.
+//b- For session handling
+//c- Use traditional password authentication
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+//store and unstore user in a session
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 const campground = require("./routes/campground");
 app.use("/campgrounds", campground);
 
