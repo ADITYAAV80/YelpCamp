@@ -46,12 +46,6 @@ sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-});
-
 const User = require("./model/user");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -67,11 +61,20 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const isAuthenticated = require("./middleware");
+const { isAuthenticated } = require("./middleware");
 
 const campground = require("./routes/campground");
 const review = require("./routes/review");
 const userRoute = require("./routes/user");
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currentUser = req.user;
+
+  console.log(req.user);
+  next();
+});
 
 app.use("/users", userRoute);
 

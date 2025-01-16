@@ -18,7 +18,7 @@ const validateCampground = (req, res, next) => {
   }
 };
 
-const isAuthenticated = require("../middleware");
+const { isAuthenticated } = require("../middleware");
 
 routes.get(
   "/",
