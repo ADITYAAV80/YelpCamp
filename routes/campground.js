@@ -18,6 +18,8 @@ const validateCampground = (req, res, next) => {
   }
 };
 
+const isAuthenticated = require("../middleware");
+
 routes.get(
   "/",
   catchAsync(async (req, res) => {
@@ -31,6 +33,7 @@ routes.get(
 
 routes.get(
   "/new",
+  isAuthenticated,
   catchAsync(async (req, res) => {
     res.render("campgrounds/new.ejs", { title: "New Campground" });
   })
@@ -38,6 +41,7 @@ routes.get(
 
 routes.post(
   "/",
+  isAuthenticated,
   validateCampground,
   catchAsync(async (req, res, next) => {
     let campground = new Campground(req.body);
@@ -50,6 +54,7 @@ routes.post(
 
 routes.get(
   "/:id/edit",
+  isAuthenticated,
   catchAsync(async (req, res) => {
     let { id } = req.params;
     let campground = await Campground.findById(id);
@@ -66,6 +71,7 @@ routes.get(
 
 routes.put(
   "/:id",
+  isAuthenticated,
   validateCampground,
   catchAsync(async (req, res) => {
     let { id } = req.params;
@@ -80,6 +86,7 @@ routes.put(
 
 routes.delete(
   "/:id",
+  isAuthenticated,
   catchAsync(async (req, res) => {
     let { id } = req.params;
     let status = await Campground.findByIdAndDelete(id);
