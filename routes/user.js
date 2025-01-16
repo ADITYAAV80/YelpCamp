@@ -5,6 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 const expressError = require("../utils/expressError");
 
 const User = require("../model/user");
+const passport = require("passport");
 
 routes.get("/register", (req, res) => {
   res.render("users/register", { title: "register" });
@@ -25,6 +26,22 @@ routes.post(
       res.redirect("/users/register");
     }
   })
+);
+
+routes.get("/login", (req, res) => {
+  res.render("users/login", { title: "login" });
+});
+
+routes.post(
+  "/login",
+  passport.authenticate("local", {
+    failureFlash: "Invalid Username or password",
+    failureRedirect: "/users/login",
+  }),
+  (req, res) => {
+    req.flash("success", "Welcome back!!");
+    res.redirect("/campgrounds");
+  }
 );
 
 module.exports = routes;
