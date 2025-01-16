@@ -67,10 +67,25 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+/* test 
+app.get("/fakeUser", async (req, res) => {
+  const user = new User({
+    email: "adityaav80@gmail.com",
+    username: "drunkanddriven",
+  });
+  const newUser = await User.register(user, "drunkanddriven");
+  res.send(newUser);
+});
+*/
+
 const campground = require("./routes/campground");
+const review = require("./routes/review");
+const userRoute = require("./routes/user");
+
+app.use("/users", userRoute);
+
 app.use("/campgrounds", campground);
 
-const review = require("./routes/review");
 app.use("/campgrounds/:id/reviews", review);
 
 app.get("/", (req, res) => {

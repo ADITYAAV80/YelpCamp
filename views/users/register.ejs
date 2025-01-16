@@ -1,0 +1,37 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container row">
+<h1 class="offset-4 col-6">Register New User</h1>
+<form class="needs-validation offset-4 col-6" action="/users/register" method="POST" novalidate>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input class="form-control" type="email" name="email" id="email" required />
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+  <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input
+      class="form-control"
+      type="text"
+      name="username"
+      id="username"
+      required
+    />
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      class="form-control"
+      type="password"
+      name="password"
+      id="password"
+      required
+    />
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+  <div class="mb-3">
+    <button class="btn btn-success">Submit</button>
+  </div>
+</div>
+</form>
