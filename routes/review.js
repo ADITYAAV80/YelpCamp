@@ -3,8 +3,7 @@ const routes = express.Router({ mergeParams: true });
 
 const catchAsync = require("../utils/catchAsync");
 
-const Review = require("../model/review");
-const Campground = require("../model/campground");
+const reviewController = require("../controller/review");
 
 const {
   isAuthenticated,
@@ -16,33 +15,14 @@ routes.post(
   "/",
   isAuthenticated,
   validateReview,
-  catchAsync(async (req, res) => {
-    let { id } = req.params;
-    let campground = await Campground.findById(id);
-
-    let review = new Review(req.body.review);
-    review.author = req.user._id;
-    let r = await review.save();
-
-    campground.reviews.push(review);
-    let c = await campground.save();
-
-    req.flash("success", "Successfully made a new review!");
-    res.redirect(`/campgrounds/${id}`);
-  })
+  catchAsync(reviewController.create)
 );
 
 routes.delete(
   "/:reviewId",
   isAuthenticated,
   isReviewAuthor,
-  async (req, res) => {
-    let { id, reviewId } = req.params;
-    await Review.findByIdAndDelete(reviewId);
-    await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    req.flash("success", "Successfully deleted review!");
-    res.redirect(`/campgrounds/${id}`);
-  }
+  catchAsync(reviewController.delete)
 );
 
 module.exports = routes;
