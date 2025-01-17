@@ -45,7 +45,7 @@ routes.post(
   validateCampground,
   catchAsync(async (req, res, next) => {
     let campground = new Campground(req.body);
-    console.log(campground);
+    campground.author = req.user._id;
     await campground.save();
     req.flash("success", "Successfully made a new campground!");
     res.redirect(`/campgrounds/${campground._id}`);
@@ -105,6 +105,7 @@ routes.get(
       return res.redirect("/campgrounds");
     }
     await campground.populate("reviews");
+    await campground.populate("author");
     res.render("campgrounds/show.ejs", { title: campground.title, campground });
   })
 );

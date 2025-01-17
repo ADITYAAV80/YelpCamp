@@ -13,6 +13,9 @@
         <p class="card-text"><%= campground.description %></p>
       </div>
       <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Posted by <%= campground.author.username%>
+        </li>
         <li class="list-group-item"><%= campground.location%></li>
         <li class="list-group-item">$<%= campground.price%>/night</li>
       </ul>
