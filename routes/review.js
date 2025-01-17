@@ -8,6 +8,7 @@ const Review = require("../model/review");
 const Campground = require("../model/campground");
 
 const reviewSchema = require("../schemas/reviewSchema");
+const { isAuthenticated } = require("../middleware");
 
 const validateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
@@ -22,13 +23,14 @@ const validateReview = (req, res, next) => {
 
 routes.post(
   "/",
+  isAuthenticated,
   validateReview,
   catchAsync(async (req, res) => {
     let { id } = req.params;
     let campground = await Campground.findById(id);
 
     let review = new Review(req.body.review);
-
+    review.author = req.user._id;
     let r = await review.save();
 
     campground.reviews.push(review);
