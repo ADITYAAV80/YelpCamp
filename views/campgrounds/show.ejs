@@ -40,7 +40,7 @@
   </div>
   <div class="col-3">
     <div class="container my-3">
-      <% if (currentUser){%>
+      <% if (currentUser && (!campground.author.equals(currentUser._id))){%>
       <h4>Please leave a review</h4>
       <form
         action="/campgrounds/<%= campground.id%>/reviews"
@@ -92,14 +92,17 @@
       <div class="card mb-3">
         <div class="card-header"><%= review.title%></div>
         <div class="card-body">
+          <p>Posted by <%= review.author.username%></p>
           <p>Rating: <%= review.rating %></p>
           <p><%= review.body %></p>
+          <% if (currentUser &&review.author.equals(currentUser._id)){%>
           <form
             action="/campgrounds/<%= campground.id%>/reviews/<%= review.id%>?_method=DELETE"
             method="POST"
           >
             <button class="btn btn-sm btn-danger">Delete</button>
           </form>
+          <% }%>
         </div>
       </div>
       <% }%>

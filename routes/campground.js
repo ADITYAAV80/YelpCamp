@@ -95,7 +95,10 @@ routes.get(
       req.flash("error", "Campground not found!");
       return res.redirect("/campgrounds");
     }
-    await campground.populate("reviews");
+    await campground.populate({
+      path: "reviews",
+      populate: { path: "author" },
+    });
     await campground.populate("author");
     res.render("campgrounds/show.ejs", { title: campground.title, campground });
   })
