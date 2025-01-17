@@ -17,6 +17,15 @@ const validateCampground = (req, res, next) => {
   }
 };
 
+let isAuthor = async (req, res, next) => {
+  let { id } = req.params;
+  let c = await Campground.findById(id);
+  if (c.author._id !== req.user._id) {
+    req.flash("error", "You don't have permission to do that!");
+    return res.redirect(`/campgrounds/${id}`);
+  }
+};
+
 const { isAuthenticated } = require("../middleware");
 
 routes.get(
@@ -54,6 +63,7 @@ routes.post(
 routes.get(
   "/:id/edit",
   isAuthenticated,
+  isAuthor,
   catchAsync(async (req, res) => {
     let { id } = req.params;
     let campground = await Campground.findById(id);
@@ -71,6 +81,7 @@ routes.get(
 routes.put(
   "/:id",
   isAuthenticated,
+  isAuthor,
   validateCampground,
   catchAsync(async (req, res) => {
     let { id } = req.params;
@@ -85,6 +96,7 @@ routes.put(
 
 routes.delete(
   "/:id",
+  isAuthor,
   isAuthenticated,
   catchAsync(async (req, res) => {
     let { id } = req.params;
