@@ -47,7 +47,6 @@ let isAuthor = async (req, res, next) => {
 let isReviewAuthor = async (req, res, next) => {
   let { reviewId, id } = req.params;
   let r = await Review.findById(reviewId);
-  console.log(r.author, req.user);
   if (!r.author.equals(req.user._id)) {
     req.flash("error", "You don't have permission to do that!");
     return res.redirect(`/campgrounds/${id}`);
