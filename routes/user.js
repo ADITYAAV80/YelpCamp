@@ -7,20 +7,21 @@ const passport = require("passport");
 
 const userController = require("../controller/user");
 
-routes.get("/register", userController.registerForm);
+routes
+  .route("/register")
+  .get(userController.registerForm)
+  .post(catchAsync(userController.register));
 
-routes.post("/register", catchAsync(userController.register));
-
-routes.get("/login", userController.loginForm);
-
-routes.post(
-  "/login",
-  passport.authenticate("local", {
-    failureFlash: "Invalid Username or password",
-    failureRedirect: "/users/login",
-  }),
-  userController.login
-);
+routes
+  .route("/login")
+  .get(userController.loginForm)
+  .post(
+    passport.authenticate("local", {
+      failureFlash: "Invalid Username or password",
+      failureRedirect: "/users/login",
+    }),
+    userController.login
+  );
 
 routes.get("/logout", userController.logout);
 
